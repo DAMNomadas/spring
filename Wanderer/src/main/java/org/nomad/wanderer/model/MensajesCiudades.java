@@ -9,20 +9,21 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Grupos {
+public class MensajesCiudades {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idGrupo;
+    @Column(name = "id_mensaje")
+    private int idMensaje;
 
-    @Column(name = "nombre")
-    private String nombre;
+    @Column(name = "contenido_mensaje")
+    private String contenidoMensaje;
 
-    @Column(name = "descripcion")
-    private String descripcion;
+    @Column(name = "usuario_envia")
+    private int usuarioEnvia;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idCiudad")
+    @JoinColumn(name = "idCiutat")
     private Ciudad ciudad;
 
 

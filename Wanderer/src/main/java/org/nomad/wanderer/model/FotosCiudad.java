@@ -9,22 +9,22 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Grupos {
+public class FotosCiudad {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idGrupo;
+    @Column(name = "id_foto")
+    private int idFoto;
 
-    @Column(name = "nombre")
-    private String nombre;
-
-    @Column(name = "descripcion")
-    private String descripcion;
+    @Lob
+    @Column(name = "foto")
+    private byte[] foto;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idCiudad")
+    @JoinColumn(name = "idCiutat")
     private Ciudad ciudad;
 
-
+    @Column(name = "id_usuario")
+    private int idUsuario;
 
 }

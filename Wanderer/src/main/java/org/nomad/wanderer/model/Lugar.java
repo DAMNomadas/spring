@@ -16,8 +16,7 @@ public class Lugar {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "lloc_id")
-    private int llocId;
+    private int idLugar;
 
     @Column(name = "nombre")
     private String nombre;

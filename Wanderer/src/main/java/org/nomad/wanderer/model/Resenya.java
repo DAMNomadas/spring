@@ -22,9 +22,6 @@ public class Resenya {
     @Column(name = "user_id")
     private int userId;
 
-    @Column(name = "lloc_id")
-    private int llocId;
-
     @Column(name = "ressenya")
     private String ressenya;
 
@@ -34,5 +31,9 @@ public class Resenya {
     @Column(name = "created_at")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate data;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "idLugar")
+    private Lugar lugar;
 
 }
