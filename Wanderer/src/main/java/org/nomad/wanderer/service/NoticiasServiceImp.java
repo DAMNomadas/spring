@@ -1,6 +1,7 @@
 package org.nomad.wanderer.service;
 
 import org.modelmapper.ModelMapper;
+import org.nomad.wanderer.model.CategoriaNoticias;
 import org.nomad.wanderer.model.Noticias;
 import org.nomad.wanderer.model.dto.NoticiaRequestDTO;
 import org.nomad.wanderer.model.dto.NoticiaResponseDTO;
@@ -17,8 +18,8 @@ public class NoticiasServiceImp implements INoticasService{
     @Autowired
     public INoticiasRepository repo;
 
-    @Service
-    public
+    @Autowired
+    public ICategoriaNoticasService serviceCategoria;
 
     @Autowired
     public ModelMapper modelMapper;
@@ -66,7 +67,8 @@ public class NoticiasServiceImp implements INoticasService{
 
     @Override
     public Noticias addNoticia(NoticiaRequestDTO noticiaDTO) {
-        return null;
+        Noticias noticia = modelMapper.map(noticiaDTO, Noticias.class);
+        CategoriaNoticias categoria = serviceCategoria.getCategoriaNoticiasByCategoria(noticiaDTO.getNombreCategoria());
     }
 
     @Override

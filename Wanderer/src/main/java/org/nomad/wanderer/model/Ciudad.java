@@ -16,6 +16,9 @@ public class Ciudad {
     @Column
     private int idCiutat;
 
+    @Column
+    private String nombre;
+
     @Column(name = "lgtbiq_friendly")
     private int lgtbiqFriendly;
 
