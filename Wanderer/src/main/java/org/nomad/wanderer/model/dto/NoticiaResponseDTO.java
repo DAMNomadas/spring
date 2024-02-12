@@ -20,7 +20,7 @@ public class NoticiaResponseDTO {
 
     private byte[] imagen;
 
-    private String nombreCiudad;
+    private String nombre;
 
     private String categoria;
 }

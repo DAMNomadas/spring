@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface ICiudadRepository extends JpaRepository<Ciudad, Integer> {
 
-    Ciudad getCiudadByNombreCiudad(String nombreCiudad);
+    Ciudad getCiudadByNombre(String nombre);
 
 }

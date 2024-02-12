@@ -1,6 +1,9 @@
 package org.nomad.wanderer.service;
 
 import org.modelmapper.ModelMapper;
+import org.nomad.wanderer.exceptions.CategoriaNotFoundException;
+import org.nomad.wanderer.exceptions.CiudadNotFoundException;
+import org.nomad.wanderer.exceptions.NoticiasNotFoundException;
 import org.nomad.wanderer.model.CategoriaNoticias;
 import org.nomad.wanderer.model.Ciudad;
 import org.nomad.wanderer.model.Noticias;
@@ -28,8 +31,19 @@ public class NoticiasServiceImp implements INoticasService{
     @Autowired
     public ModelMapper modelMapper;
 
+   /* @Override
+    public List<NoticiaResponseDTO> getAllNoticias() {
+        List<Noticias> list = repo.findAll();
+
+        List<NoticiaResponseDTO> listaDTO = list.stream()
+                .map(noticias -> modelMapper.map(noticias, NoticiaResponseDTO.class))
+                .collect(Collectors.toList());
+        return listaDTO;
+    }*/
+
+
     @Override
-    public List<NoticiaResponseDTO> getAllNoticas() {
+    public List<NoticiaResponseDTO> getAllNoticias() {
         List<Noticias> list = repo.findAll();
 
         List<NoticiaResponseDTO> listaDTO = list.stream()
@@ -40,7 +54,14 @@ public class NoticiasServiceImp implements INoticasService{
 
     @Override
     public List<NoticiaResponseDTO> getNoticiasByCiudad(String ciudad) {
-        List<Noticias> list = repo.getNoticiasByCiudad(ciudad);
+
+        Ciudad ciudadEncontrada = serviceCiudad.getCiudadByNombre(ciudad);
+
+        List<Noticias> list = repo.getNoticiasByCiudad(ciudadEncontrada);
+
+        if (list.isEmpty()) {
+            throw new NoticiasNotFoundException("No se encontraron noticias de la ciudad " + ciudad + " .");
+        }
 
         List<NoticiaResponseDTO> listaDTO = list.stream()
                 .map(noticias -> modelMapper.map(noticias, NoticiaResponseDTO.class))
@@ -50,7 +71,14 @@ public class NoticiasServiceImp implements INoticasService{
 
     @Override
     public List<NoticiaResponseDTO> getNoticasByCategoria(String categoria) {
-        List<Noticias> list = repo.getNoticiasByCategoria(categoria);
+
+        CategoriaNoticias categoriaEncontrada = serviceCategoria.getCategoriaNoticiasByCategoria(categoria);
+
+        List<Noticias> list = repo.getNoticiasByCategoria(categoriaEncontrada);
+
+        if (list.isEmpty()) {
+            throw new NoticiasNotFoundException("No se encontraron noticias para la categoría " + categoria + " .");
+        }
 
         List<NoticiaResponseDTO> listaDTO = list.stream()
                 .map(noticias -> modelMapper.map(noticias, NoticiaResponseDTO.class))
@@ -60,7 +88,15 @@ public class NoticiasServiceImp implements INoticasService{
 
     @Override
     public List<NoticiaResponseDTO> getNoticasByCategoriaAndCiudad(String categoria, String ciudad) {
-        List<Noticias> list = repo.getNoticiasByCategoriaAndCiudad(categoria, ciudad);
+
+        CategoriaNoticias categoriaEncontrada = serviceCategoria.getCategoriaNoticiasByCategoria(categoria);
+        Ciudad ciudadEncontrada = serviceCiudad.getCiudadByNombre(ciudad);
+
+        List<Noticias> list = repo.getNoticiasByCategoriaAndCiudad(categoriaEncontrada, ciudadEncontrada);
+
+        if (list.isEmpty()) {
+            throw new NoticiasNotFoundException("No se encontraron noticias para la categoría " + categoria + " y la ciudad " + ciudad);
+        }
 
         List<NoticiaResponseDTO> listaDTO = list.stream()
                 .map(noticias -> modelMapper.map(noticias, NoticiaResponseDTO.class))

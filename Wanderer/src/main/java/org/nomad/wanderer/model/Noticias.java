@@ -27,7 +27,7 @@ public class Noticias {
     private byte[] imagen;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @Column(name = "idCiutat")
+    @JoinColumn(name = "idCiutat")
     private Ciudad ciudad;
 
     @ManyToOne(cascade = CascadeType.ALL)

@@ -1,5 +1,7 @@
 package org.nomad.wanderer.service;
 
+import org.nomad.wanderer.model.CategoriaNoticias;
+import org.nomad.wanderer.model.Ciudad;
 import org.nomad.wanderer.model.Noticias;
 import org.nomad.wanderer.model.dto.NoticiaRequestDTO;
 import org.nomad.wanderer.model.dto.NoticiaResponseDTO;
@@ -7,7 +9,7 @@ import org.nomad.wanderer.model.dto.NoticiaResponseDTO;
 import java.util.List;
 
 public interface INoticasService {
-    List<NoticiaResponseDTO> getAllNoticas();
+    List<NoticiaResponseDTO> getAllNoticias();
     List<NoticiaResponseDTO> getNoticiasByCiudad(String ciudad);
     List<NoticiaResponseDTO> getNoticasByCategoria(String categoria);
     List<NoticiaResponseDTO> getNoticasByCategoriaAndCiudad(String categoria, String ciudad);

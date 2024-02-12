@@ -13,6 +13,6 @@ public class CiudadServiceImpl implements ICiudadService {
 
     @Override
     public Ciudad getCiudadByNombre(String ciudad) {
-        return repo.getCiudadByNombreCiudad(ciudad);
+        return repo.getCiudadByNombre(ciudad);
     }
 }

@@ -1,4 +1,4 @@
-package org.nomad.wanderer.service;
+package org.nomad.wanderer.exceptions;
 
 public class CategoriaNotFoundException extends RuntimeException  {
     public CategoriaNotFoundException(String laCategoríaEspecificadaNoExiste) {
