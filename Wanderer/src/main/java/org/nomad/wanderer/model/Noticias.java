@@ -34,5 +34,4 @@ public class Noticias {
     @JoinColumn(name = "idCategoria")
     private CategoriaNoticias categoria;
 
-
 }
