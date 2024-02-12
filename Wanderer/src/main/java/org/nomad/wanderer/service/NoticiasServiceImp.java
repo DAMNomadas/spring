@@ -109,13 +109,13 @@ public class NoticiasServiceImp implements INoticasService{
     public Noticias addNoticia(NoticiaRequestDTO noticiaDTO) {
 
         // Validar que la categoría existe
-        CategoriaNoticias categoria = serviceCategoria.getCategoriaNoticiasByCategoria(noticiaDTO.getNombreCategoria());
+        CategoriaNoticias categoria = serviceCategoria.getCategoriaNoticiasByCategoria(noticiaDTO.getCategoria());
         if (categoria == null) {
             throw new CategoriaNotFoundException("La categoría especificada no existe");
         }
 
         // Validar que la ciudad existe
-        Ciudad ciudad = serviceCiudad.getCiudadByNombre(noticiaDTO.getNombreCiutat());
+        Ciudad ciudad = serviceCiudad.getCiudadByNombre(noticiaDTO.getNombre());
         if (ciudad == null) {
             throw new CiudadNotFoundException("La ciudad especificada no existe");
         }

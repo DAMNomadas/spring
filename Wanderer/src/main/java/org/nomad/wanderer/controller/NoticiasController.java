@@ -1,7 +1,9 @@
 package org.nomad.wanderer.controller;
 
+import jakarta.validation.Valid;
 import org.nomad.wanderer.model.Ciudad;
 import org.nomad.wanderer.model.Noticias;
+import org.nomad.wanderer.model.dto.NoticiaRequestDTO;
 import org.nomad.wanderer.model.dto.NoticiaResponseDTO;
 import org.nomad.wanderer.service.INoticasService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +31,7 @@ public class NoticiasController {
         }
     }
 
-    @GetMapping("/{nombre}")
+    @GetMapping("/ciudad/{nombre}")
     public ResponseEntity<List<NoticiaResponseDTO>> getNoticiasByCiudad(@PathVariable("nombre") String ciudad){
 
         List<NoticiaResponseDTO> lista = service.getNoticiasByCiudad(ciudad);
@@ -41,7 +43,7 @@ public class NoticiasController {
         }
     }
 
-    @GetMapping("/{categoria}")
+    @GetMapping("/categoria/{categoria}")
     public ResponseEntity<List<NoticiaResponseDTO>> getNoticiasByCategoria(@PathVariable("categoria") String categoria){
         List<NoticiaResponseDTO> lista = service.getNoticasByCategoria(categoria);
 
@@ -62,6 +64,18 @@ public class NoticiasController {
         }else {
             return new ResponseEntity<>(lista, HttpStatus.OK);
         }
+    }
+
+    @PostMapping
+    public ResponseEntity<Noticias> addNoticia(@Valid @RequestBody NoticiaRequestDTO noticiaRequestDTO){
+        Noticias obj = service.addNoticia(noticiaRequestDTO);
+
+        if (obj == null) {
+            return new ResponseEntity<>(obj, HttpStatus.NO_CONTENT);
+        }else{
+            return new ResponseEntity<>(obj, HttpStatus.CREATED);
+        }
+
     }
 
 

@@ -28,8 +28,8 @@ public class Ciudad {
     @Column(name = "sports_life")
     private int sportsLife;
 
-    @Column(name = "armed_conflicts")
-    private boolean armedConflicts;
+    @Column(name = "safety_rate")
+    private int safetyRate;
 
     @Column(name = "universal_healthcare")
     private boolean universalHealthcare;
@@ -45,9 +45,6 @@ public class Ciudad {
 
     @Column(name = "cost_life")
     private float costLife;
-
-    @Column(name = "puntuacion_nomada")
-    private float puntuacionNomada;
 
     @Column(name = "imagen")
     private byte[] imagen;

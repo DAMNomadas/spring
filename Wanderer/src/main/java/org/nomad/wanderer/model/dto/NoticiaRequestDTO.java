@@ -20,9 +20,9 @@ public class NoticiaRequestDTO {
     //añadir imagen
 
     @NotBlank
-    private String nombreCiutat;
+    private String nombre;
 
     @NotBlank
-    private String nombreCategoria;
+    private String categoria;
 
 }

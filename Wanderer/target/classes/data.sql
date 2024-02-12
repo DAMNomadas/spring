@@ -10,9 +10,9 @@ INSERT INTO Ciudad (nombre, lgtbiq_friendly, pet_friendly, sports_life, armed_co
 VALUES ('Nueva York', 1, 1, 1, false, true, 7, 1, 8, 800, 8.0, NULL, 'Noreste', 'Estados Unidos');
 
 
-INSERT INTO categoria_noticias (categoria) VALUES ('Política');
+INSERT INTO categoria_noticias (categoria) VALUES ('Politica');
 INSERT INTO categoria_noticias (categoria) VALUES ('Deportes');
-INSERT INTO categoria_noticias (categoria) VALUES ('Tecnología');
+INSERT INTO categoria_noticias (categoria) VALUES ('Tecnologia');
 INSERT INTO categoria_noticias (categoria) VALUES ('Entretenimiento');
 INSERT INTO categoria_noticias (categoria) VALUES ('Salud');
 
