@@ -71,17 +71,34 @@ public class NoticiasServiceImp implements INoticasService{
 
     @Override
     public Noticias addNoticia(NoticiaRequestDTO noticiaDTO) {
-        Noticias noticia = modelMapper.map(noticiaDTO, Noticias.class);
+
+        // Validar que la categoría existe
         CategoriaNoticias categoria = serviceCategoria.getCategoriaNoticiasByCategoria(noticiaDTO.getNombreCategoria());
-        noticia.setCategoria(categoria);
+        if (categoria == null) {
+            throw new CategoriaNotFoundException("La categoría especificada no existe");
+        }
+
+        // Validar que la ciudad existe
         Ciudad ciudad = serviceCiudad.getCiudadByNombre(noticiaDTO.getNombreCiutat());
+        if (ciudad == null) {
+            throw new CiudadNotFoundException("La ciudad especificada no existe");
+        }
+
+        // Mapear DTO a entidad
+        Noticias noticia = modelMapper.map(noticiaDTO, Noticias.class);
+
+        // Asignar la categoría y la ciudad a la noticia
+        noticia.setCategoria(categoria);
         noticia.setCiudad(ciudad);
 
+        // Guardar la noticia en la base de datos
         return repo.save(noticia);
     }
 
     @Override
     public void eliminarNotica(Integer id) {
+
+        repo.deleteById(id);
 
     }
 }
