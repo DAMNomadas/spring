@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface NoticiasRepository extends JpaRepository<Noticias, Integer> {
+public interface INoticiasRepository extends JpaRepository<Noticias, Integer> {
 
     List<Noticias> getNoticiasByCiudad(String ciudad);
     List<Noticias> getNoticiasByCategoria(String categoria);
