@@ -49,6 +49,9 @@ public class Ciudad {
     @Column(name = "puntuacion_nomada")
     private float puntuacionNomada;
 
+    @Column(name = "imagen")
+    private byte[] imagen;
+
     @Column(name = "region")
     private String region;
 

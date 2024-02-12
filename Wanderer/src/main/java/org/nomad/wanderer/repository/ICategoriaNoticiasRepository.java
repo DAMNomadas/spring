@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ICategoriaNoticias extends JpaRepository<CategoriaNoticias, Integer> {
+public interface ICategoriaNoticiasRepository extends JpaRepository<CategoriaNoticias, Integer> {
 
     CategoriaNoticias getCategoriaNoticiasByCategoria(String categoria);
     CategoriaNoticias getCategoriaNoticiasByIdCategoria(Integer idCategoria);
