@@ -1,10 +1,9 @@
 package org.nomad.wanderer.controller;
 
 import jakarta.validation.Valid;
-import org.nomad.wanderer.model.Ciudad;
 import org.nomad.wanderer.model.Noticias;
-import org.nomad.wanderer.model.dto.NoticiaRequestDTO;
-import org.nomad.wanderer.model.dto.NoticiaResponseDTO;
+import org.nomad.wanderer.model.dto.noticiasDTO.NoticiaRequestDTO;
+import org.nomad.wanderer.model.dto.noticiasDTO.NoticiaResponseDTO;
 import org.nomad.wanderer.service.INoticasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -68,6 +67,7 @@ public class NoticiasController {
 
     @PostMapping
     public ResponseEntity<Noticias> addNoticia(@Valid @RequestBody NoticiaRequestDTO noticiaRequestDTO){
+
         Noticias obj = service.addNoticia(noticiaRequestDTO);
 
         if (obj == null) {
@@ -78,6 +78,11 @@ public class NoticiasController {
 
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminarNoticia(@PathVariable(value = "id")Integer id){
+        service.eliminarNotica(id);
 
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
 }

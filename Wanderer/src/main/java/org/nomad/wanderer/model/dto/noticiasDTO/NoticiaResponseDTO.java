@@ -1,4 +1,4 @@
-package org.nomad.wanderer.model.dto;
+package org.nomad.wanderer.model.dto.noticiasDTO;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

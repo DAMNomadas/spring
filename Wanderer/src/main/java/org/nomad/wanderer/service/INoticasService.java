@@ -1,10 +1,8 @@
 package org.nomad.wanderer.service;
 
-import org.nomad.wanderer.model.CategoriaNoticias;
-import org.nomad.wanderer.model.Ciudad;
 import org.nomad.wanderer.model.Noticias;
-import org.nomad.wanderer.model.dto.NoticiaRequestDTO;
-import org.nomad.wanderer.model.dto.NoticiaResponseDTO;
+import org.nomad.wanderer.model.dto.noticiasDTO.NoticiaRequestDTO;
+import org.nomad.wanderer.model.dto.noticiasDTO.NoticiaResponseDTO;
 
 import java.util.List;
 

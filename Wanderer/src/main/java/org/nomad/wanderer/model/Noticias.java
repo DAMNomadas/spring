@@ -26,11 +26,11 @@ public class Noticias {
     @Column(name = "imagen")
     private byte[] imagen;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "idCiutat")
     private Ciudad ciudad;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "idCategoria")
     private CategoriaNoticias categoria;
 
