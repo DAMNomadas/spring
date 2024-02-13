@@ -1,13 +1,26 @@
 
 
-INSERT INTO Ciudad (nombre, lgtbiq_friendly, pet_friendly, sports_life, armed_conflicts, universal_healthcare, climate_quality, female_friendly, internet_quality, cost_life, puntuacion_nomada, imagen, region, pais)
-VALUES ('Tallin', 1, 1, 1, false, true, 8, 1, 9, 700, 8.5, NULL, 'Europa del Este', 'Estonia');
+INSERT INTO Ciudad (nombre, descripcion, universal_healthcare, average_salary, imagen, pais)
+VALUES ('Tallin', 'Tallin es la capital de Estonia y una ciudad histórica con una rica cultura y arquitectura medieval.', true, 3000.50, NULL, 'Estonia');
 
-INSERT INTO Ciudad (nombre, lgtbiq_friendly, pet_friendly, sports_life, armed_conflicts, universal_healthcare, climate_quality, female_friendly, internet_quality, cost_life, puntuacion_nomada, imagen, region, pais)
-VALUES ('Aveiro', 1, 1, 1, false, true, 7, 1, 8, 800, 8.0, NULL, 'Sudoeste de Europa', 'Portugal');
+INSERT INTO Ciudad (nombre, descripcion, universal_healthcare, average_salary, imagen, pais)
+VALUES ('Aveiro', 'Aveiro es una ciudad costera en Portugal conocida por sus canales, barcos moliceiros coloridos y su deliciosa gastronomía.', false, 2500.75, NULL, 'Portugal');
 
-INSERT INTO Ciudad (nombre, lgtbiq_friendly, pet_friendly, sports_life, armed_conflicts, universal_healthcare, climate_quality, female_friendly, internet_quality, cost_life, puntuacion_nomada, imagen, region, pais)
-VALUES ('Nueva York', 1, 1, 1, false, true, 7, 1, 8, 800, 8.0, NULL, 'Noreste', 'Estados Unidos');
+INSERT INTO Ciudad (nombre, descripcion, universal_healthcare, average_salary, imagen, pais)
+VALUES ('Nueva York', 'Nueva York es una ciudad cosmopolita y diversa conocida por su icónica skyline, sus numerosas atracciones turísticas y su vibrante vida cultural.', true, 5000.25, NULL, 'Estados Unidos');
+
+INSERT INTO usuario (id, latitud, longuitud, diet, origin_country, sexual_interest, estudios, job, sports, religion, name, lastname, karma_leve)
+VALUES (1, 40.7128, -74.0060, 'Vegetarian', 'USA', 'Heterosexual', 'Bachelor', 'Software Engineer', 'Running', 'None', 'John', 'Doe', 100);
+
+
+-- Puntuación 1 para Tallin
+INSERT INTO PuntuacionUsuariosCiudad (lgtbiq_friendly, pet_friendly, sports_life, safety_rate, climate_quality, female_friendly, internet_quality, cost_life, id, id_ciutat)
+VALUES (4, 3, 5, 4, 3, 4, 4, 3, 1,1);
+
+-- Puntuación 2 para Tallin
+INSERT INTO PuntuacionUsuariosCiudad (lgtbiq_friendly, pet_friendly, sports_life, safety_rate, climate_quality, female_friendly, internet_quality, cost_life, id, id_ciutat)
+VALUES (5, 4, 4, 3, 4, 3, 5, 4,1,1);
+
 
 
 INSERT INTO categoria_noticias (categoria) VALUES ('Politica');

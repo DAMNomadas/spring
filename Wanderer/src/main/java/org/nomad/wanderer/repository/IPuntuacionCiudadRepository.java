@@ -1,5 +1,6 @@
 package org.nomad.wanderer.repository;
 
+import org.nomad.wanderer.model.Ciudad;
 import org.nomad.wanderer.model.PuntuacionUsuariosCiudad;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,5 +15,5 @@ public interface IPuntuacionCiudadRepository extends JpaRepository<PuntuacionUsu
     /*@Query("SELECT AVG(p.lgtbiqFriendly) FROM PuntuacionUsuariosCiudad p WHERE p.ciudad.idCiudad = :idCiudad")
     Float findLgtbiqFriendlyAverageByCiudadId(@Param("idCiudad") int idCiudad);*/
 
-    List<PuntuacionUsuariosCiudad> getPuntuacionUsuariosCiudadByCiudad(String nombre);
+    List<PuntuacionUsuariosCiudad> getPuntuacionUsuariosCiudadByCiudad(Ciudad id);
 }
