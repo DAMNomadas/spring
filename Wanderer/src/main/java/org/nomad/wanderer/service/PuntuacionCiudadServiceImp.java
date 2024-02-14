@@ -87,6 +87,5 @@ public class PuntuacionCiudadServiceImp implements IPuntuacionCiudadService{
         PuntuacionCiudadUsuarioResponseDTO puntuacioDTO = modelMapper.map(ciudadPuntuada, PuntuacionCiudadUsuarioResponseDTO.class);
 
         return puntuacioDTO;
-
     }
 }

@@ -10,5 +10,6 @@ import java.util.List;
 public interface ICiudadRepository extends JpaRepository<Ciudad, Integer> {
 
     Ciudad getCiudadByNombre(String nombre);
+    List<Ciudad> getCiudadByUniversalHealthcare(Boolean isUniversal);
 
 }

@@ -32,7 +32,6 @@ public class PuntuacionCiudadController {
     @GetMapping("/filter")
     public ResponseEntity<PuntuacionCiudadUsuarioResponseDTO> getPuntuacionCiudadUsuario(@RequestParam(value = "ciudad")String ciudad,
                                                                                   @RequestParam(value = "idUsuario")int idUsuario){
-
         PuntuacionCiudadUsuarioResponseDTO obj = service.getPuntuacionCiudadUsuario(ciudad, idUsuario);
 
         if (obj == null) {

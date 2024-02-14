@@ -3,11 +3,13 @@ package org.nomad.wanderer.service;
 import org.modelmapper.ModelMapper;
 import org.nomad.wanderer.model.Ciudad;
 import org.nomad.wanderer.model.PuntuacionUsuariosCiudad;
+import org.nomad.wanderer.model.ciudadDTO.AddCiudadRequest;
 import org.nomad.wanderer.model.puntuacionDTO.CiudadPuntuacionResponseDTO;
 import org.nomad.wanderer.repository.ICiudadRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,11 +24,65 @@ public class CiudadServiceImpl implements ICiudadService {
     @Autowired
     public ModelMapper modelMapper;
 
-
-
     @Override
     public Ciudad getCiudadByNombre(String ciudad) {
         return repo.getCiudadByNombre(ciudad);
+    }
+
+    @Override
+    public Ciudad addCiudad(AddCiudadRequest ciudadDTO) {
+
+        Ciudad existeCiudad = repo.getCiudadByNombre(ciudadDTO.getNombre());
+
+        if (existeCiudad == null){
+            Ciudad ciudad = modelMapper.map(ciudadDTO, Ciudad.class);
+            return repo.save(ciudad);
+        }
+
+        return null;
+    }
+    @Override
+    public List<CiudadPuntuacionResponseDTO> getAllPuntuaciones(){
+
+        List<Ciudad> ciudadList = repo.findAll();
+        List<CiudadPuntuacionResponseDTO> listaDTO = new ArrayList<>();
+
+        for(Ciudad c: ciudadList){
+            List<PuntuacionUsuariosCiudad> puntuaciones = servicePuntuaciones.getPuntuacionesCiudad(c.getNombre());
+
+            if (!puntuaciones.isEmpty()){
+                int lgtbiqFriendlyMedia = calcularMedia(puntuaciones, "lgtbiqFriendly");
+                int petFriendlyMedia = calcularMedia(puntuaciones,"petFriendly");
+                int sportsLifeMedia = calcularMedia(puntuaciones,"sportsLife");
+                int safetyRateMedia = calcularMedia(puntuaciones,"safetyRate");
+                int climateQualityMedia = calcularMedia(puntuaciones,"climateQuality");
+                int femaleFriendlyMedia = calcularMedia(puntuaciones,"femaleFriendly");
+                int internetQualityMedia = calcularMedia(puntuaciones,"internetQuality");
+                int costLifeMedia = calcularMedia(puntuaciones,"costLife");
+
+                CiudadPuntuacionResponseDTO dto = new CiudadPuntuacionResponseDTO();
+                modelMapper.map(c, dto);
+                // Aquí asigna las medias de puntuación a los campos correspondientes del DTO
+                dto.setLgtbiqFriendlyMedia(lgtbiqFriendlyMedia);
+                dto.setPetFriendlyMedia(petFriendlyMedia);
+                dto.setSportsLifeMedia(sportsLifeMedia);
+                dto.setSafetyRateMedia(safetyRateMedia);
+                dto.setClimateQualityMedia(climateQualityMedia);
+                dto.setFemaleFriendlyMedia(femaleFriendlyMedia);
+                dto.setInternetQualityMedia(internetQualityMedia);
+                dto.setCostLifeMedia(costLifeMedia);
+                listaDTO.add(dto);
+            }
+
+        }
+
+        return listaDTO;
+
+    }
+
+    @Override
+    public List<CiudadPuntuacionResponseDTO> getCiudadByHealthCare(Boolean isUniversal) {
+        return null;
     }
 
     public CiudadPuntuacionResponseDTO obtenerPuntuacionCiudad(String nombre){
