@@ -39,6 +39,8 @@ public class Usuario {
     @Column
     private String lastname;
     @Column
-    private int karmaLeve;
+    private int karmaLevel;
+    @Column
+    private int karmaCollected;
 
 }
