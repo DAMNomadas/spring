@@ -3,6 +3,7 @@ package org.nomad.wanderer.controller;
 import jakarta.validation.Valid;
 import org.nomad.wanderer.model.Ciudad;
 import org.nomad.wanderer.model.ciudadDTO.AddCiudadRequest;
+import org.nomad.wanderer.model.ciudadDTO.UpdateCiudadRequest;
 import org.nomad.wanderer.model.puntuacionDTO.CiudadPuntuacionResponseDTO;
 import org.nomad.wanderer.service.CiudadServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,9 +49,21 @@ public class CiudadController {
         Ciudad obj = service.addCiudad(ciudad);
 
         if (obj == null) {
-            return new ResponseEntity<>(obj, HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(obj, HttpStatus.BAD_REQUEST);
         }else{
             return new ResponseEntity<>(obj, HttpStatus.CREATED);
+        }
+
+    }
+
+    @PutMapping
+    public ResponseEntity<Ciudad> modificarCiudad(@Valid @RequestBody UpdateCiudadRequest updateCiudadRequest){
+        Ciudad obj = service.modificarCiudad(updateCiudadRequest);
+
+        if (obj == null) {
+            return new ResponseEntity<>(obj, HttpStatus.NOT_FOUND);
+        }else{
+            return new ResponseEntity<>(obj, HttpStatus.OK);
         }
 
     }

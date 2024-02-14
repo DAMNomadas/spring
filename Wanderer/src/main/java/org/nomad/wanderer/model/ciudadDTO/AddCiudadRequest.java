@@ -14,7 +14,7 @@ public class AddCiudadRequest {
     @NotBlank
     private String nombre;
 
-    @Size(min = 100, message = "La noticia debe tener al menos 100 caracteres")
+    @Size(min = 100, message = "La descripcion debe tener al menos 100 caracteres")
     private String descripcion;
 
     private boolean universalHealthcare;

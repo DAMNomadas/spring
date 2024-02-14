@@ -1,9 +1,11 @@
 package org.nomad.wanderer.service;
 
 import org.modelmapper.ModelMapper;
+import org.nomad.wanderer.exceptions.CiudadNotFoundException;
 import org.nomad.wanderer.model.Ciudad;
 import org.nomad.wanderer.model.PuntuacionUsuariosCiudad;
 import org.nomad.wanderer.model.ciudadDTO.AddCiudadRequest;
+import org.nomad.wanderer.model.ciudadDTO.UpdateCiudadRequest;
 import org.nomad.wanderer.model.puntuacionDTO.CiudadPuntuacionResponseDTO;
 import org.nomad.wanderer.repository.ICiudadRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CiudadServiceImpl implements ICiudadService {
@@ -81,8 +84,23 @@ public class CiudadServiceImpl implements ICiudadService {
     }
 
     @Override
-    public List<CiudadPuntuacionResponseDTO> getCiudadByHealthCare(Boolean isUniversal) {
-        return null;
+    public Ciudad modificarCiudad(UpdateCiudadRequest ciudad) {
+
+        Optional<Ciudad> ciudadOptional = repo.findById(ciudad.getIdCiudad());
+
+        if (ciudadOptional.isPresent()) {
+            Ciudad ciudadActual = ciudadOptional.get();
+            ciudadActual.setDescripcion(ciudad.getDescripcion());
+            ciudadActual.setImagen(ciudad.getImagen());
+            ciudadActual.setUniversalHealthcare(ciudad.isUniversalHealthcare());
+            ciudadActual.setAverageSalary(ciudad.getAverageSalary());
+
+            return repo.save(ciudadActual);
+
+        }else {
+            throw new CiudadNotFoundException("La ciudad especificada no existe");
+        }
+
     }
 
     public CiudadPuntuacionResponseDTO obtenerPuntuacionCiudad(String nombre){
