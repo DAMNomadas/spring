@@ -3,7 +3,7 @@ package org.nomad.wanderer.service;
 import org.modelmapper.ModelMapper;
 import org.nomad.wanderer.model.Ciudad;
 import org.nomad.wanderer.model.PuntuacionUsuariosCiudad;
-import org.nomad.wanderer.model.ciudadDTO.CiudadPuntuacionResponseDTO;
+import org.nomad.wanderer.model.puntuacionDTO.CiudadPuntuacionResponseDTO;
 import org.nomad.wanderer.repository.ICiudadRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

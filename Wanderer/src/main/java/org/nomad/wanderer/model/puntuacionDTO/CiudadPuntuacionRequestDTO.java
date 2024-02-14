@@ -1,4 +1,4 @@
-package org.nomad.wanderer.model.ciudadDTO;
+package org.nomad.wanderer.model.puntuacionDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,16 +7,13 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CiudadPuntuacionResponseDTO {
+public class CiudadPuntuacionRequestDTO {
 
     /*Ciudad*/
-    private int idCiudad;
     private String nombre;
-    private String descripcion;
-    private boolean universalHealthcare;
-    private float averageSalary;
-    private byte[] imagen;
-    private String pais;
+
+    /*Usuario*/
+    private int id;
 
     /*PuntuacionUsuariosCiudad*/
     private float lgtbiqFriendlyMedia;
