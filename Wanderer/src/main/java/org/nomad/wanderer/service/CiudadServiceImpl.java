@@ -86,7 +86,7 @@ public class CiudadServiceImpl implements ICiudadService {
     @Override
     public Ciudad modificarCiudad(UpdateCiudadRequest ciudad) {
 
-        Optional<Ciudad> ciudadOptional = repo.findById(ciudad.getIdCiudad());
+        Optional<Ciudad> ciudadOptional = repo.findById(ciudad.getIdCiutat());
 
         if (ciudadOptional.isPresent()) {
             Ciudad ciudadActual = ciudadOptional.get();

@@ -35,7 +35,7 @@ public class Lugar {
     private float puntuacionMedia;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idCiudad")
+    @JoinColumn(name = "idCiutat")
     private Ciudad ciutat;
 
 }

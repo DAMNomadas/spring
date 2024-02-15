@@ -22,7 +22,7 @@ public class Grupos {
     private String descripcion;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idCiudad")
+    @JoinColumn(name = "idCiutat")
     private Ciudad ciudad;
 
 

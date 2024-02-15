@@ -32,4 +32,8 @@ public class Ciudad {
 
     @Column(name = "pais")
     private String pais;
+
+    /*@Column
+    private byte[] video;*/
+
 }
