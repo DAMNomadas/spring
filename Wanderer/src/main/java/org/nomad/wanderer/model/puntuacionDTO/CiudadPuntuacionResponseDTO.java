@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class CiudadPuntuacionResponseDTO {
 
     /*Ciudad*/
-    private int idCiudad;
+    private int idCiutat;
     private String nombre;
     private String descripcion;
     private boolean universalHealthcare;

@@ -31,25 +31,12 @@ public class NoticiasServiceImp implements INoticasService{
     @Autowired
     public ModelMapper modelMapper;
 
-   /* @Override
-    public List<NoticiaResponseDTO> getAllNoticias() {
-        List<Noticias> list = repo.findAll();
-
-        List<NoticiaResponseDTO> listaDTO = list.stream()
-                .map(noticias -> modelMapper.map(noticias, NoticiaResponseDTO.class))
-                .collect(Collectors.toList());
-        return listaDTO;
-    }*/
-
 
     @Override
     public List<NoticiaResponseDTO> getAllNoticias() {
         List<Noticias> list = repo.findAll();
 
-        List<NoticiaResponseDTO> listaDTO = list.stream()
-                .map(noticias -> modelMapper.map(noticias, NoticiaResponseDTO.class))
-                .collect(Collectors.toList());
-        return listaDTO;
+        return getNoticiaResponseDTOS(list);
     }
 
     @Override
@@ -63,11 +50,10 @@ public class NoticiasServiceImp implements INoticasService{
             throw new NoticiasNotFoundException("No se encontraron noticias de la ciudad " + ciudad + " .");
         }
 
-        List<NoticiaResponseDTO> listaDTO = list.stream()
-                .map(noticias -> modelMapper.map(noticias, NoticiaResponseDTO.class))
-                .collect(Collectors.toList());
-        return listaDTO;
+        return getNoticiaResponseDTOS(list);
     }
+
+
 
     @Override
     public List<NoticiaResponseDTO> getNoticasByCategoria(String categoria) {
@@ -80,10 +66,7 @@ public class NoticiasServiceImp implements INoticasService{
             throw new NoticiasNotFoundException("No se encontraron noticias para la categoría " + categoria + " .");
         }
 
-        List<NoticiaResponseDTO> listaDTO = list.stream()
-                .map(noticias -> modelMapper.map(noticias, NoticiaResponseDTO.class))
-                .collect(Collectors.toList());
-        return listaDTO;
+        return getNoticiaResponseDTOS(list);
     }
 
     @Override
@@ -98,10 +81,8 @@ public class NoticiasServiceImp implements INoticasService{
             throw new NoticiasNotFoundException("No se encontraron noticias para la categoría " + categoria + " y la ciudad " + ciudad);
         }
 
-        List<NoticiaResponseDTO> listaDTO = list.stream()
-                .map(noticias -> modelMapper.map(noticias, NoticiaResponseDTO.class))
-                .collect(Collectors.toList());
-        return listaDTO;
+
+        return getNoticiaResponseDTOS(list);
 
     }
 
@@ -136,5 +117,19 @@ public class NoticiasServiceImp implements INoticasService{
 
         repo.deleteById(id);
 
+    }
+
+    /*PARA MAPEAR*/
+    private List<NoticiaResponseDTO> getNoticiaResponseDTOS(List<Noticias> list) {
+        List<NoticiaResponseDTO> listaDTO = list.stream()
+                .map(noticias -> {
+                    NoticiaResponseDTO dto = modelMapper.map(noticias, NoticiaResponseDTO.class);
+                    if (noticias.getCiudad() != null) {
+                        dto.setNombre(noticias.getCiudad().getNombre());
+                    }
+                    return dto;
+                })
+                .collect(Collectors.toList());
+        return listaDTO;
     }
 }
