@@ -14,7 +14,7 @@ public class NoticiaRequestDTO {
     @NotBlank
     private String titulo;
 
-    @Size(min = 100, message = "La noticia debe tener al menos 100 caracteres")
+    @Size(min = 10, message = "La noticia debe tener al menos 100 caracteres")
     private String texto;
 
     //añadir imagen
