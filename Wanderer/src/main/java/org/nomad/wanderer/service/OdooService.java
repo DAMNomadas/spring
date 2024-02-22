@@ -1,6 +1,7 @@
 package org.nomad.wanderer.service;
 
 import org.nomad.wanderer.model.UsuarioOdoo;
+import org.nomad.wanderer.model.UsuarioRegistroOdoo;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -40,6 +41,31 @@ public class OdooService {
     }
 
     //public Object registrarUsuarioOdoo
+
+    public Object registrarUsuarioOdoo (UsuarioRegistroOdoo usuario){
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        String email = usuario.getEmail();
+        String nombre = usuario.getNombre();
+        String password = usuario.getPassword();
+
+        Map<String, Object> args = new HashMap<>();
+        args.put("service", "object");
+        args.put("method", "execute");
+        args.put("args", new Object[]{db, idAdmin, passAdmin,"res.users", "create", new Object[]{new HashMap<String, Object>() {{
+            put("name", nombre);
+            put("login", email);
+            put("password", password);
+        }}}});
+
+        JsonRpcRequest request = new JsonRpcRequest("call", args, 2);
+        HttpEntity<JsonRpcRequest> entity = new HttpEntity<>(request);
+
+        return restTemplate.postForObject(url, entity, Object.class);
+
+    }
 
     public Object getInfo(int idUsuario){
         RestTemplate restTemplate = new RestTemplate();
