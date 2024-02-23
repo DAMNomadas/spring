@@ -28,10 +28,19 @@ public class Ciudad {
     private float averageSalary;
 
     @Column(name = "imagen")
-    private byte[] imagen;
+    //private byte[] imagen;
+    private String urlImagen;
 
     @Column(name = "pais")
     private String pais;
+
+    @Column(name = "longuitud")
+    private double longuitud;
+
+    @Column(name = "latitud")
+    private double latitud;
+
+
 
     /*@Column
     private byte[] video;*/

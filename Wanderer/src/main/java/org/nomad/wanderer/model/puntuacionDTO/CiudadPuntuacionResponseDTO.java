@@ -1,5 +1,6 @@
 package org.nomad.wanderer.model.puntuacionDTO;
 
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,8 +16,11 @@ public class CiudadPuntuacionResponseDTO {
     private String descripcion;
     private boolean universalHealthcare;
     private float averageSalary;
-    private byte[] imagen;
+    //private byte[] imagen;
     private String pais;
+    private String urlImagen;
+    private double longuitud;
+    private double latitud;
 
     /*PuntuacionUsuariosCiudad*/
     private float lgtbiqFriendlyMedia;

@@ -14,8 +14,12 @@ import java.util.Map;
 @Service
 public class OdooService {
 
-    private static final String url = "http://localhost:8069/jsonrpc";
-    private static final String db = "bdodoo";
+   /* private static final String url = "http://192.168.8.112:8069/jsonrpc";
+    private static final String db = "proyecto";
+    private static final int adminId = 2;
+    private static final String adminPassword = "admin";*/
+    private static final String url = "http://192.168.8.102:8069/jsonrpc";
+    private static final String db = "jordi-odoo2";
     private static final int idAdmin = 2;
     private static final String passAdmin = "admin";
 

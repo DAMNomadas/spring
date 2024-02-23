@@ -14,13 +14,20 @@ public class AddCiudadRequest {
     @NotBlank
     private String nombre;
 
-    @Size(min = 100, message = "La descripcion debe tener al menos 100 caracteres")
+    @Size(min = 10, message = "La descripcion debe tener al menos 10 caracteres")
     private String descripcion;
 
     private boolean universalHealthcare;
+
     private float averageSalary;
-    private byte[] imagen;
+    //private byte[] imagen;
     @NotBlank
     private String pais;
+
+    private String urlImagen;
+
+    private double longuitud;
+
+    private double latitud;
 
 }
