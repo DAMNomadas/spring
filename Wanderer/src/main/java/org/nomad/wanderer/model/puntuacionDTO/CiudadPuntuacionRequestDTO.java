@@ -12,8 +12,6 @@ public class CiudadPuntuacionRequestDTO {
     /*Ciudad*/
     private String nombre;
 
-    /*Usuario*/
-    private int id;
 
     /*PuntuacionUsuariosCiudad*/
     private float lgtbiqFriendlyMedia;
@@ -24,5 +22,6 @@ public class CiudadPuntuacionRequestDTO {
     private float femaleFriendlyMedia;
     private float internetQualityMedia;
     private float costLifeMedia;
+    private int idUserOdoo;
 
 }

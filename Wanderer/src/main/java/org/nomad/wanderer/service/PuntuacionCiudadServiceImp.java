@@ -24,8 +24,6 @@ public class PuntuacionCiudadServiceImp implements IPuntuacionCiudadService{
     @Autowired
     public ICiudadRepository repoCiudad;
 
-    @Autowired
-    public IUsuarioService usuarioService;
 
     @Autowired
     public ModelMapper modelMapper;
@@ -49,22 +47,17 @@ public class PuntuacionCiudadServiceImp implements IPuntuacionCiudadService{
             throw new CiudadNotFoundException("La ciudad especificada no existe");
         }
 
-        Usuario usuario = usuarioService.getUsuarioById(puntuacionDTO.getId());
-
-        if (usuario == null) {
-            throw new UsuarioNotFoundException("El usuario no existe");
-        }
 
         PuntuacionUsuariosCiudad puntuacion = modelMapper.map(puntuacionDTO, PuntuacionUsuariosCiudad.class);
         puntuacion.setCiudad(ciudad);
-        puntuacion.setUsuario(usuario);
+        puntuacion.setIdUserOdoo(puntuacion.getIdUserOdoo());
 
         return repo.save(puntuacion);
 
     }
 
     @Override
-    public PuntuacionCiudadUsuarioResponseDTO getPuntuacionCiudadUsuario(String nombre, int idUsuario) {
+    public PuntuacionCiudadUsuarioResponseDTO getPuntuacionCiudadUsuario(String nombre, int idUsuarioOdoo) {
 
         Ciudad ciudad = repoCiudad.getCiudadByNombre(nombre);
 
@@ -72,13 +65,8 @@ public class PuntuacionCiudadServiceImp implements IPuntuacionCiudadService{
             throw new CiudadNotFoundException("La ciudad especificada no existe");
         }
 
-        Usuario usuario = usuarioService.getUsuarioById(idUsuario);
 
-        if (usuario == null) {
-            throw new UsuarioNotFoundException("El usuario no existe");
-        }
-
-        PuntuacionUsuariosCiudad ciudadPuntuada = repo.getPuntuacionUsuariosCiudadByUsuarioAndCiudad(usuario, ciudad);
+        PuntuacionUsuariosCiudad ciudadPuntuada = repo.getPuntuacionUsuariosCiudadByCiudadAndIdUserOdoo(ciudad, idUsuarioOdoo);
 
         if (ciudadPuntuada == null) {
             throw new PuntuacionUsuarioNotFoundException("El usuario no ha votado la ciudad");

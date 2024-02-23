@@ -91,7 +91,7 @@ public class CiudadServiceImpl implements ICiudadService {
         if (ciudadOptional.isPresent()) {
             Ciudad ciudadActual = ciudadOptional.get();
             ciudadActual.setDescripcion(ciudad.getDescripcion());
-            ciudadActual.setImagen(ciudad.getImagen());
+            ciudadActual.setUrlImagen(ciudad.getUrlImagen());
             ciudadActual.setUniversalHealthcare(ciudad.isUniversalHealthcare());
             ciudadActual.setAverageSalary(ciudad.getAverageSalary());
 

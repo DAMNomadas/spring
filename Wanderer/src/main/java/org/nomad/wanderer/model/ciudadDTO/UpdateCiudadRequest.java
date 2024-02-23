@@ -11,11 +11,12 @@ import lombok.NoArgsConstructor;
 public class UpdateCiudadRequest {
 
     int idCiutat;
-    @Size(min = 100, message = "La descripcion debe tener al menos 100 caracteres")
+    @Size(min = 10, message = "La descripcion debe tener al menos 10 caracteres")
     private String descripcion;
     private boolean universalHealthcare;
     private float averageSalary;
-    private byte[] imagen;
+    //private byte[] imagen;
+    private String urlImagen;
 
 }
 

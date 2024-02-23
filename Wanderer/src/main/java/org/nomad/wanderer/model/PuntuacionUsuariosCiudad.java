@@ -39,9 +39,10 @@ public class PuntuacionUsuariosCiudad {
     @Column(name = "cost_life")
     private int costLife;
 
-    @ManyToOne
-    @JoinColumn(name = "id")
-    private Usuario usuario;
+    /*@ManyToOne
+    @JoinColumn(name = "id")*/
+    @Column(name = "id_user_odoo")
+    private int idUserOdoo;
 
     @ManyToOne
     @JoinColumn(name = "idCiutat")
