@@ -13,6 +13,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Wanderer</name>
 	<description>Wanderer</description>
+	<packaging>war</packaging>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -66,23 +67,49 @@
             <artifactId>spring-web</artifactId>
             <version>6.1.3</version>
         </dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
     </dependencies>
 
 	<build>
 		<plugins>
+		<!-- Simplificar la configuración y ejecución de aplicaciones -->
+		<plugin>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-maven-plugin</artifactId>
+			<configuration>
+				<excludes>
+					<!-- Excluir lombok en el jar o war final -->
+					<exclude>
+						<groupId>org.projectlombok</groupId>
+						<artifactId>lombok</artifactId>
+					</exclude>
+				</excludes>
+			</configuration>
+		</plugin>
+		<!-- Gestiona los recursos del proyecto, como archivos y
+        contenidos estáticos, permitiendo su filtrado y
+        copiado en el directorio de salido del proyecto -->
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-resources-plugin</artifactId>
+			<version>3.1.0</version>
+		</plugin>
+			<!-- Utilizado para ejecutar pruebas unitarias -->
 			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
+					<!-- La ejecución de las pruebas se omite -->
+					<skipTests>true</skipTests>
 				</configuration>
 			</plugin>
 		</plugins>
+		<!-- Nombre final del fichero generado .jar o .war-->
+		<finalName>Wanderer</finalName>
 	</build>
 
 </project>

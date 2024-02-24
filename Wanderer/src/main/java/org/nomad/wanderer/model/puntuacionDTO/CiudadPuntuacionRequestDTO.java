@@ -22,6 +22,6 @@ public class CiudadPuntuacionRequestDTO {
     private float femaleFriendlyMedia;
     private float internetQualityMedia;
     private float costLifeMedia;
-    private int idUserOdoo;
+    private int userOdoo;
 
 }

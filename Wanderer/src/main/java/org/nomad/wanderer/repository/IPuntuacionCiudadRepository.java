@@ -18,6 +18,6 @@ public interface IPuntuacionCiudadRepository extends JpaRepository<PuntuacionUsu
 
     List<PuntuacionUsuariosCiudad> getPuntuacionUsuariosCiudadByCiudad(Ciudad nombre);
 
-    PuntuacionUsuariosCiudad getPuntuacionUsuariosCiudadByCiudadAndIdUserOdoo(Ciudad nombre, int userOdoo);
+    PuntuacionUsuariosCiudad getPuntuacionUsuariosCiudadByCiudadAndUserOdoo(Ciudad nombre, int userOdoo);
 
 }

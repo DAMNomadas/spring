@@ -21,6 +21,7 @@ public class CiudadPuntuacionResponseDTO {
     private String urlImagen;
     private double longuitud;
     private double latitud;
+    private String urlVideo;
 
     /*PuntuacionUsuariosCiudad*/
     private float lgtbiqFriendlyMedia;

@@ -30,4 +30,6 @@ public class AddCiudadRequest {
 
     private double latitud;
 
+    private String urlVideo;
+
 }

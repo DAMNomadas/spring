@@ -19,14 +19,18 @@ public class PuntuacionCiudadController {
 
     @PostMapping
     public ResponseEntity<PuntuacionUsuariosCiudad> addPuntuacion(@RequestBody CiudadPuntuacionRequestDTO puntuacionRequestDTO){
-        PuntuacionUsuariosCiudad obj = service.addPuntuacionCiudad(puntuacionRequestDTO);
 
-        if (obj == null) {
-            return new ResponseEntity<>(obj, HttpStatus.NO_CONTENT);
-        }else{
-            return new ResponseEntity<>(obj, HttpStatus.CREATED);
+        PuntuacionCiudadUsuarioResponseDTO puntuacioExiste = service.getPuntuacionCiudadUsuario(puntuacionRequestDTO.getNombre(), puntuacionRequestDTO.getUserOdoo());
+
+        if(puntuacioExiste == null){
+            PuntuacionUsuariosCiudad obj = service.addPuntuacionCiudad(puntuacionRequestDTO);
+            if (obj == null) {
+                return new ResponseEntity<>(obj, HttpStatus.NO_CONTENT);
+            }else{
+                return new ResponseEntity<>(obj, HttpStatus.CREATED);
+            }
         }
-
+        return null;
     }
 
     @GetMapping("/filter")

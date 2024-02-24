@@ -50,7 +50,7 @@ public class PuntuacionCiudadServiceImp implements IPuntuacionCiudadService{
 
         PuntuacionUsuariosCiudad puntuacion = modelMapper.map(puntuacionDTO, PuntuacionUsuariosCiudad.class);
         puntuacion.setCiudad(ciudad);
-        puntuacion.setIdUserOdoo(puntuacion.getIdUserOdoo());
+        puntuacion.setUserOdoo(puntuacionDTO.getUserOdoo());
 
         return repo.save(puntuacion);
 
@@ -66,10 +66,10 @@ public class PuntuacionCiudadServiceImp implements IPuntuacionCiudadService{
         }
 
 
-        PuntuacionUsuariosCiudad ciudadPuntuada = repo.getPuntuacionUsuariosCiudadByCiudadAndIdUserOdoo(ciudad, idUsuarioOdoo);
+        PuntuacionUsuariosCiudad ciudadPuntuada = repo.getPuntuacionUsuariosCiudadByCiudadAndUserOdoo(ciudad, idUsuarioOdoo);
 
-        if (ciudadPuntuada == null) {
-            throw new PuntuacionUsuarioNotFoundException("El usuario no ha votado la ciudad");
+        if (ciudadPuntuada != null) {
+            throw new PuntuacionUsuarioNotFoundException("El usuario ya ha votado la ciudad");
         }
 
         PuntuacionCiudadUsuarioResponseDTO puntuacioDTO = modelMapper.map(ciudadPuntuada, PuntuacionCiudadUsuarioResponseDTO.class);

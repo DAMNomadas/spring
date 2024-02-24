@@ -17,6 +17,7 @@ public class UpdateCiudadRequest {
     private float averageSalary;
     //private byte[] imagen;
     private String urlImagen;
+    private String urlVideo;
 
 }
 

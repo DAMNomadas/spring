@@ -40,6 +40,9 @@ public class Ciudad {
     @Column(name = "latitud")
     private double latitud;
 
+    @Column(name = "url_video")
+    private String urlVideo;
+
 
 
     /*@Column

@@ -41,8 +41,8 @@ public class PuntuacionUsuariosCiudad {
 
     /*@ManyToOne
     @JoinColumn(name = "id")*/
-    @Column(name = "id_user_odoo")
-    private int idUserOdoo;
+    @Column(name = "user_odoo")
+    private int userOdoo;
 
     @ManyToOne
     @JoinColumn(name = "idCiutat")
