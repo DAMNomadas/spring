@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Data
@@ -25,6 +26,8 @@ public class Noticias {
     @Lob
     @Column(name = "imagen")
     private byte[] imagen;
+
+    private transient MultipartFile imagenFile;
 
     @ManyToOne
     @JoinColumn(name = "idCiutat")

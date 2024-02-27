@@ -15,8 +15,11 @@ public class CiudadPuntuacionResponseDTO {
     private String descripcion;
     private boolean universalHealthcare;
     private float averageSalary;
-    private byte[] imagen;
     private String pais;
+    private String video;
+    private float latitud;
+    private float longitud;
+    private String imagenUrl;
 
     /*PuntuacionUsuariosCiudad*/
     private float lgtbiqFriendlyMedia;

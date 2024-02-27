@@ -5,6 +5,7 @@ import org.nomad.wanderer.model.dto.noticiasDTO.NoticiaRequestDTO;
 import org.nomad.wanderer.model.dto.noticiasDTO.NoticiaResponseDTO;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface INoticasService {
     List<NoticiaResponseDTO> getAllNoticias();
@@ -13,6 +14,6 @@ public interface INoticasService {
     List<NoticiaResponseDTO> getNoticasByCategoriaAndCiudad(String categoria, String ciudad);
     Noticias addNoticia (NoticiaRequestDTO noticiaDTO);
     void eliminarNotica(Integer id);
-
+    Noticias getNoticiaById(int id);
 
 }

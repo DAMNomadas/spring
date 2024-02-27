@@ -16,5 +16,5 @@ public interface ICiudadService {
     List<CiudadPuntuacionResponseDTO> getAllPuntuaciones();
 
     Ciudad modificarCiudad(UpdateCiudadRequest ciudad);
-
+    Ciudad getCiudadById(int id);
 }

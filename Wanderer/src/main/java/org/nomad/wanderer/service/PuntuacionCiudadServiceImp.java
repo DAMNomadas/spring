@@ -33,7 +33,7 @@ public class PuntuacionCiudadServiceImp implements IPuntuacionCiudadService{
     @Override
     public List<PuntuacionUsuariosCiudad> getPuntuacionesCiudad(String nombre) {
 
-        Ciudad ciudad = repoCiudad.getCiudadByNombre(nombre);
+        Ciudad ciudad = repoCiudad.getCiudadByNombreIgnoreCase(nombre);
 
         return repo.getPuntuacionUsuariosCiudadByCiudad(ciudad);
 
@@ -43,7 +43,7 @@ public class PuntuacionCiudadServiceImp implements IPuntuacionCiudadService{
     public PuntuacionUsuariosCiudad addPuntuacionCiudad(CiudadPuntuacionRequestDTO puntuacionDTO) {
 
         String nombreCiudad = puntuacionDTO.getNombre();
-        Ciudad ciudad = repoCiudad.getCiudadByNombre(nombreCiudad);
+        Ciudad ciudad = repoCiudad.getCiudadByNombreIgnoreCase(nombreCiudad);
 
         if (ciudad == null) {
             throw new CiudadNotFoundException("La ciudad especificada no existe");
@@ -66,7 +66,7 @@ public class PuntuacionCiudadServiceImp implements IPuntuacionCiudadService{
     @Override
     public PuntuacionCiudadUsuarioResponseDTO getPuntuacionCiudadUsuario(String nombre, int idUsuario) {
 
-        Ciudad ciudad = repoCiudad.getCiudadByNombre(nombre);
+        Ciudad ciudad = repoCiudad.getCiudadByNombreIgnoreCase(nombre);
 
         if (ciudad == null) {
             throw new CiudadNotFoundException("La ciudad especificada no existe");

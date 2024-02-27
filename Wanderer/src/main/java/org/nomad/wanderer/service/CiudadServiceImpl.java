@@ -1,20 +1,26 @@
 package org.nomad.wanderer.service;
 
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
+import org.nomad.wanderer.exceptions.CategoriaNotFoundException;
 import org.nomad.wanderer.exceptions.CiudadNotFoundException;
-import org.nomad.wanderer.model.Ciudad;
-import org.nomad.wanderer.model.PuntuacionUsuariosCiudad;
+import org.nomad.wanderer.exceptions.NoticiasNotFoundException;
+import org.nomad.wanderer.model.*;
 import org.nomad.wanderer.model.ciudadDTO.AddCiudadRequest;
 import org.nomad.wanderer.model.ciudadDTO.UpdateCiudadRequest;
+import org.nomad.wanderer.model.dto.noticiasDTO.NoticiaRequestDTO;
+import org.nomad.wanderer.model.puntuacionDTO.CiudadPuntuacionRequestDTO;
 import org.nomad.wanderer.model.puntuacionDTO.CiudadPuntuacionResponseDTO;
 import org.nomad.wanderer.repository.ICiudadRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+@Transactional
 @Service
 public class CiudadServiceImpl implements ICiudadService {
 
@@ -29,20 +35,61 @@ public class CiudadServiceImpl implements ICiudadService {
 
     @Override
     public Ciudad getCiudadByNombre(String ciudad) {
-        return repo.getCiudadByNombre(ciudad);
+        System.out.println("Nombre de ciudad:"+ciudad);
+        return repo.getCiudadByNombreIgnoreCase(ciudad);
     }
+
+//    @Override
+//    public Ciudad addCiudad(AddCiudadRequest ciudadDTO) {
+//
+//        Ciudad existeCiudad = repo.getCiudadByNombre(ciudadDTO.getNombre());
+//
+//        if (existeCiudad == null){
+//            Ciudad ciudad = modelMapper.map(ciudadDTO, Ciudad.class);
+//            return repo.save(ciudad);
+//        }
+//
+//        return null;
+//    }
 
     @Override
     public Ciudad addCiudad(AddCiudadRequest ciudadDTO) {
-
-        Ciudad existeCiudad = repo.getCiudadByNombre(ciudadDTO.getNombre());
+        Ciudad existeCiudad = repo.getCiudadByNombreIgnoreCase(ciudadDTO.getNombre());
 
         if (existeCiudad == null){
             Ciudad ciudad = modelMapper.map(ciudadDTO, Ciudad.class);
-            return repo.save(ciudad);
-        }
 
+            MultipartFile imagenFile = ciudadDTO.getImagenFile();
+            if (imagenFile != null && !imagenFile.isEmpty()) {
+                try {
+                    ciudad.setImagen(imagenFile.getBytes());
+                } catch (IOException e) {
+                    throw new RuntimeException("Error al cargar la imagen");
+                }
+            }
+            repo.save(ciudad);
+
+            CiudadPuntuacionRequestDTO puntuacion = new CiudadPuntuacionRequestDTO();
+            puntuacion.setNombre(ciudadDTO.getNombre());
+            puntuacion.setId(2);
+            puntuacion.setLgtbiqFriendlyMedia(9);
+            puntuacion.setPetFriendlyMedia(8);
+            puntuacion.setSportsLifeMedia(4);
+            puntuacion.setSafetyRateMedia(7);
+            puntuacion.setClimateQualityMedia(3);
+            puntuacion.setFemaleFriendlyMedia(8);
+            puntuacion.setInternetQualityMedia(4);
+            puntuacion.setCostLifeMedia(3);
+            servicePuntuaciones.addPuntuacionCiudad(puntuacion);
+
+
+        }
         return null;
+    }
+    @Override
+    public Ciudad getCiudadById(int id) {
+        Optional<Ciudad> optionalCiudad = repo.findByIdCiutat(id);
+        return optionalCiudad.orElseThrow(() -> new NoticiasNotFoundException("Ciudad no encontrada con el ID: " + id));
     }
     @Override
     public List<CiudadPuntuacionResponseDTO> getAllPuntuaciones(){
@@ -74,6 +121,7 @@ public class CiudadServiceImpl implements ICiudadService {
                 dto.setFemaleFriendlyMedia(femaleFriendlyMedia);
                 dto.setInternetQualityMedia(internetQualityMedia);
                 dto.setCostLifeMedia(costLifeMedia);
+                dto.setImagenUrl("/ciudades/imagen/" + c.getIdCiutat());
                 listaDTO.add(dto);
             }
 
@@ -87,7 +135,7 @@ public class CiudadServiceImpl implements ICiudadService {
     public Ciudad modificarCiudad(UpdateCiudadRequest ciudad) {
 
         Optional<Ciudad> ciudadOptional = repo.findById(ciudad.getIdCiutat());
-
+        System.out.println("EL id de la ciudad es: "+ciudad.getIdCiutat());
         if (ciudadOptional.isPresent()) {
             Ciudad ciudadActual = ciudadOptional.get();
             ciudadActual.setDescripcion(ciudad.getDescripcion());
@@ -105,7 +153,7 @@ public class CiudadServiceImpl implements ICiudadService {
 
     public CiudadPuntuacionResponseDTO obtenerPuntuacionCiudad(String nombre){
 
-        Ciudad ciudad = repo.getCiudadByNombre(nombre);
+        Ciudad ciudad = repo.getCiudadByNombreIgnoreCase(nombre);
         List<PuntuacionUsuariosCiudad> puntuaciones = servicePuntuaciones.getPuntuacionesCiudad(nombre);
 
         // Calculamos las medias de las puntuaciones

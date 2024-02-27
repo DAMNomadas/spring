@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @AllArgsConstructor
@@ -17,7 +18,7 @@ public class NoticiaRequestDTO {
     @Size(min = 10, message = "La noticia debe tener al menos 100 caracteres")
     private String texto;
 
-    //añadir imagen
+    private MultipartFile imagenFile;
 
     @NotBlank
     private String nombre;

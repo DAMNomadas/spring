@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Data
@@ -27,13 +28,21 @@ public class Ciudad {
     @Column
     private float averageSalary;
 
+    @Lob
     @Column(name = "imagen")
     private byte[] imagen;
+
+    private transient MultipartFile imagenFile;
 
     @Column(name = "pais")
     private String pais;
 
-    /*@Column
-    private byte[] video;*/
+    @Column(name = "video")
+    private String video;
 
+    @Column(name = "latitud")
+    private float latitud;
+
+    @Column(name = "longitud")
+    private float longitud;
 }

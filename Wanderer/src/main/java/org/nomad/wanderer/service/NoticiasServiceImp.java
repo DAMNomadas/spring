@@ -12,8 +12,11 @@ import org.nomad.wanderer.model.dto.noticiasDTO.NoticiaResponseDTO;
 import org.nomad.wanderer.repository.INoticiasRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -86,6 +89,32 @@ public class NoticiasServiceImp implements INoticasService{
 
     }
 
+//    @Override
+//    public Noticias addNoticia(NoticiaRequestDTO noticiaDTO) {
+//
+//        // Validar que la categoría existe
+//        CategoriaNoticias categoria = serviceCategoria.getCategoriaNoticiasByCategoria(noticiaDTO.getCategoria());
+//        if (categoria == null) {
+//            throw new CategoriaNotFoundException("La categoría especificada no existe");
+//        }
+//
+//        // Validar que la ciudad existe
+//        Ciudad ciudad = serviceCiudad.getCiudadByNombre(noticiaDTO.getNombre());
+//        if (ciudad == null) {
+//            throw new CiudadNotFoundException("La ciudad especificada no existe");
+//        }
+//
+//        // Mapear DTO a entidad
+//        Noticias noticia = modelMapper.map(noticiaDTO, Noticias.class);
+//
+//        // Asignar la categoría y la ciudad a la noticia
+//        noticia.setCategoria(categoria);
+//        noticia.setCiudad(ciudad);
+//
+//        // Guardar la noticia en la base de datos
+//        return repo.save(noticia);
+//    }
+
     @Override
     public Noticias addNoticia(NoticiaRequestDTO noticiaDTO) {
 
@@ -94,7 +123,7 @@ public class NoticiasServiceImp implements INoticasService{
         if (categoria == null) {
             throw new CategoriaNotFoundException("La categoría especificada no existe");
         }
-
+        System.out.println("La ciudad DTO es: "+noticiaDTO.getNombre());
         // Validar que la ciudad existe
         Ciudad ciudad = serviceCiudad.getCiudadByNombre(noticiaDTO.getNombre());
         if (ciudad == null) {
@@ -103,6 +132,17 @@ public class NoticiasServiceImp implements INoticasService{
 
         // Mapear DTO a entidad
         Noticias noticia = modelMapper.map(noticiaDTO, Noticias.class);
+
+        // Subir imagen
+        MultipartFile imagenFile = noticiaDTO.getImagenFile();
+        if (imagenFile != null && !imagenFile.isEmpty()) {
+            try {
+                noticia.setImagen(imagenFile.getBytes());
+            } catch (IOException e) {
+                // Manejar la excepción apropiadamente
+                throw new RuntimeException("Error al cargar la imagen");
+            }
+        }
 
         // Asignar la categoría y la ciudad a la noticia
         noticia.setCategoria(categoria);
@@ -120,6 +160,19 @@ public class NoticiasServiceImp implements INoticasService{
     }
 
     /*PARA MAPEAR*/
+//    private List<NoticiaResponseDTO> getNoticiaResponseDTOS(List<Noticias> list) {
+//        List<NoticiaResponseDTO> listaDTO = list.stream()
+//                .map(noticias -> {
+//                    NoticiaResponseDTO dto = modelMapper.map(noticias, NoticiaResponseDTO.class);
+//                    if (noticias.getCiudad() != null) {
+//                        dto.setNombre(noticias.getCiudad().getNombre());
+//                    }
+//                    return dto;
+//                })
+//                .collect(Collectors.toList());
+//        return listaDTO;
+//    }
+
     private List<NoticiaResponseDTO> getNoticiaResponseDTOS(List<Noticias> list) {
         List<NoticiaResponseDTO> listaDTO = list.stream()
                 .map(noticias -> {
@@ -127,9 +180,17 @@ public class NoticiasServiceImp implements INoticasService{
                     if (noticias.getCiudad() != null) {
                         dto.setNombre(noticias.getCiudad().getNombre());
                     }
+                    // Crear URL de la imagen
+                    dto.setImagenUrl("/noticias/imagen/" + noticias.getIdNoticia()); // Asumiendo una ruta apropiada para acceder a la imagen
                     return dto;
                 })
                 .collect(Collectors.toList());
         return listaDTO;
+    }
+
+    @Override
+    public Noticias getNoticiaById(int id) {
+        Optional<Noticias> optionalNoticia = repo.findByIdNoticia(id);
+        return optionalNoticia.orElseThrow(() -> new NoticiasNotFoundException("Noticia no encontrada con el ID: " + id));
     }
 }

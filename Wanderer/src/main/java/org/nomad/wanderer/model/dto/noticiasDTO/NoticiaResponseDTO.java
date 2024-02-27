@@ -18,7 +18,7 @@ public class NoticiaResponseDTO {
 
     private String texto;
 
-    private byte[] imagen;
+    private String imagenUrl;
 
     private String nombre;
 
